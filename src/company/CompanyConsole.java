@@ -2,42 +2,27 @@ package company;
 
 import java.util.Scanner;
 
-/**
- * Class CompanyConsole: launches program
- * @author Carolyn MacIsaac, with modifications by Dave Houtman
- * CST8284 
- * Assignment 1: Company Management Tool prototype
- * Release Date: February 11 2019
- */
 
 public class CompanyConsole {
 	
-	// named constants, used in the menu below
 	private static final int ADDEMPLOYEE = 1;
 	private static final int DISPLAYEMPLOYEES = 2;
 	private static final int DISPLAYSENIOREMPLOYEE = 3;
 	private static final int EXIT = 9;
 	
-	// a variable to hold a company object, itself made up of employees
 	private Company startUp;
 	
-	// used for menu input
 	Scanner in = new Scanner(System.in);
 	
-	// default startup object for the application
 	public CompanyConsole() {
 		startUp = new Company();
 	}
 
-	// starting point of execution for the program; loads a new instance of this
-	// class, and runs the menu for user input
 	public static void main (String [] args) {	
 		CompanyConsole console = new CompanyConsole();
 		console.menu();	
 	}
-	
-	// the main interface for the application; the user's choices drive program
-	// execution
+
 	public void menu(){	
 		int choice;
 		do{
@@ -73,7 +58,7 @@ public class CompanyConsole {
 		} while(choice != CompanyConsole.EXIT); //end do and exit program
 	}
 	private void displaySeniorEmployee() {
-		if(startUp.getEmployees().length == 0){
+		if(startUp.getEmployees().size() == 0){
 			System.out.println("There are no employees\n");
 		}
 		else{
@@ -84,8 +69,8 @@ public class CompanyConsole {
 	private void displayEmployees() {
 		System.out.println("NAME\t\t\tEMPLOYEE NO.\tSTART DATE\tSALARY\n");	
 		for(int i = 0; i < startUp.currentNumberEmployees(); i++)
-			if (startUp.getEmployees()[i] !=null)
-			   System.out.println(startUp.getEmployees()[i]);	
+			if (startUp.getEmployees().get(i) !=null)
+			   System.out.println(startUp.getEmployees().get(i));	
 	}
 	private void addEmployee() {	
 		if(startUp.isMaximumEmployees()) 
