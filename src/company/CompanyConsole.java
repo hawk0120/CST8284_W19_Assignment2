@@ -8,6 +8,8 @@ public class CompanyConsole {
 	private static final int ADDEMPLOYEE = 1;
 	private static final int DISPLAYEMPLOYEES = 2;
 	private static final int DISPLAYSENIOREMPLOYEE = 3;
+	private static final int FIND_EMPLOYEE = 4;
+	private static final int DELETE_EMPLOYEE = 5;
 	private static final int EXIT = 9;
 	
 	private Company startUp;
@@ -31,6 +33,9 @@ public class CompanyConsole {
 			System.out.println(CompanyConsole.ADDEMPLOYEE + ".  ADD EMPLOYEE");
 			System.out.println(CompanyConsole.DISPLAYEMPLOYEES+ ".  DISPLAY EMPLOYEES");
 			System.out.println(CompanyConsole.DISPLAYSENIOREMPLOYEE+ ".  DISPLAY SENIOR EMPLOYEE");
+			System.out.println(CompanyConsole.FIND_EMPLOYEE+ ". FIND AN EMPLOYEE");
+			System.out.println(CompanyConsole.DELETE_EMPLOYEE+ ". DELETE AN EMPLOYEE");
+			
 			System.out.println(CompanyConsole.EXIT + ".  EXIT ");
 			System.out.println("*******************************************************\n");
 			
@@ -49,6 +54,10 @@ public class CompanyConsole {
 				case CompanyConsole.DISPLAYSENIOREMPLOYEE:
 					displaySeniorEmployee();
 					break;
+				case CompanyConsole.FIND_EMPLOYEE:
+					findEmployees();
+				case CompanyConsole.DELETE_EMPLOYEE:
+					deleteEmployee();
 				case CompanyConsole.EXIT:
 					System.out.println("Goodbye");
 					break;
@@ -71,6 +80,18 @@ public class CompanyConsole {
 		for(int i = 0; i < startUp.currentNumberEmployees(); i++)
 			if (startUp.getEmployees().get(i) !=null)
 			   System.out.println(startUp.getEmployees().get(i));	
+	}
+	private void deleteEmployee() {
+		System.out.println("What is the Employee Number: ");
+		startUp.deleteEmployee(in.nextInt());
+		
+	}
+	private void findEmployees() {
+		System.out.println("What is the Employee Number: ");
+		Employee emp = new Employee();
+		startUp.findEmployee(in.nextInt());
+		
+
 	}
 	private void addEmployee() {	
 		if(startUp.isMaximumEmployees()) 
