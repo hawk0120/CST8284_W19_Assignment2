@@ -5,7 +5,6 @@ import java.util.Calendar;
 public class Company {
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
 	public Company() {
-
 		employees.add(new Employee("Alvin Spring", 14, new OurDate(2, 12, 2014), 150000));
 		employees.add(new Employee("Grant Barge", 21, new OurDate(18, 5, 2009), 40000));
 		employees.add(new Employee("Ross Chuttle", 23, new OurDate(22, 2, 2010), 43269));
@@ -22,6 +21,20 @@ public class Company {
 		return employees;
 	}
 	
+	public Employee findEmployee(int empNumber) {
+		int j = 0;
+		for(int i = 0; empNumber != employees.get(i).getEmployeeNumber(); i++) {
+			j++;
+		}
+		return employees.get(j);
+	}
+	
+	public Employee deleteEmployee(int empNumber) {
+		Employee del = new Employee();
+		del = findEmployee(empNumber);
+		employees.remove(del);
+		return del;
+	}	
 
 	public Employee findSeniorEmployee() {	
 		if (employees.size() == 0) return null; 		
@@ -54,3 +67,4 @@ public class Company {
 	}
 
 }// end class 
+
