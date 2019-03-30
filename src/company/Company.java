@@ -1,18 +1,17 @@
 package company;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Company {
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
-	public Company() {
-		employees.add(new Employee("Alvin Spring", 14, new OurDate(2, 12, 2014), 150000));
-		employees.add(new Employee("Grant Barge", 21, new OurDate(18, 5, 2009), 40000));
-		employees.add(new Employee("Ross Chuttle", 23, new OurDate(22, 2, 2010), 43269));
-	}
+
+	public Company() {}
 
 	public int currentNumberEmployees() {
 		return employees.size();
 	}
+
 	public boolean isMaximumEmployees() {
 		return false;
 	}
@@ -20,51 +19,61 @@ public class Company {
 	public ArrayList<Employee> getEmployees() {
 		return employees;
 	}
-	
+
 	public Employee findEmployee(int empNumber) {
 		int j = 0;
-		for(int i = 0; empNumber != employees.get(i).getEmployeeNumber(); i++) {
+		for (int i = 0; empNumber != employees.get(i).getEmployeeNumber(); i++) {
 			j++;
 		}
 		return employees.get(j);
 	}
-	
+
 	public Employee deleteEmployee(int empNumber) {
-		Employee del = new Employee();
+		Employee del = new Staff();
 		del = findEmployee(empNumber);
 		employees.remove(del);
 		return del;
-	}	
+	}
 
-	public Employee findSeniorEmployee() {	
-		if (employees.size() == 0) return null; 		
-		int seniorEmployeeIndex = 0; 
-		Calendar calEarliestStartDate = (Calendar.getInstance());  
-		
+	public Employee findSeniorEmployee() {
+		if (employees.size() == 0)
+			return null;
+		int seniorEmployeeIndex = 0;
+		Calendar calEarliestStartDate = (Calendar.getInstance());
+
 		OurDate odEarliestStartDate = employees.get(seniorEmployeeIndex).getStartDate();
-		calEarliestStartDate.set(odEarliestStartDate.getYear(), 
-				odEarliestStartDate.getMonth(), odEarliestStartDate.getDay());
+		calEarliestStartDate.set(odEarliestStartDate.getYear(), odEarliestStartDate.getMonth(),
+				odEarliestStartDate.getDay());
 
-		for (int employeeIndex = 1;  employeeIndex < employees.size(); employeeIndex++) {
-		     OurDate thisStartDate = employees.get(employeeIndex).getStartDate();
-		     Calendar calThisStartDate = Calendar.getInstance();  // need to load new instance..
-		     calThisStartDate.set(thisStartDate.getYear(),   
-						thisStartDate.getMonth(), thisStartDate.getDay());
-		     if (calThisStartDate.before(calEarliestStartDate)){
-		    	 seniorEmployeeIndex = employeeIndex;
-		    	 calEarliestStartDate = calThisStartDate;
-		     }
+		for (int employeeIndex = 1; employeeIndex < employees.size(); employeeIndex++) {
+			OurDate thisStartDate = employees.get(employeeIndex).getStartDate();
+			Calendar calThisStartDate = Calendar.getInstance(); // need to load new instance..
+			calThisStartDate.set(thisStartDate.getYear(), thisStartDate.getMonth(), thisStartDate.getDay());
+			if (calThisStartDate.before(calEarliestStartDate)) {
+				seniorEmployeeIndex = employeeIndex;
+				calEarliestStartDate = calThisStartDate;
+			}
 		}
-		return employees.get(seniorEmployeeIndex);  
-	}
-	
-
-	public void addEmployee(String name, int employeeNumber, OurDate date, double salary) {
-		if (!isMaximumEmployees())
-		     employees.add( new Employee(name, employeeNumber, date, salary));
-		else 
-			System.out.println("Attempt to exceed maximum Employee array size");
+		return employees.get(seniorEmployeeIndex);
 	}
 
-}// end class 
+	public Employee addEmployee(String name, int employeeNumber, OurDate date, double salary, int emptype) {
+		switch(emptype) {
+		case 1:
+			Manager manager = new Manager(name, employeeNumber, date, salary, null);
+			employees.add(manager);
+			return manager;
+		case 2:
+			Staff staff = new Staff(name, employeeNumber, date, salary, null);
+			employees.add(staff);
+			return staff;			
+		case 3:
+			Temp temp = new Temp(name, employeeNumber, date, salary, new OurDate());
+			employees.add(temp);
+			return temp;
+		}
+		return null;		
+		
+	}
 
+}// end class
