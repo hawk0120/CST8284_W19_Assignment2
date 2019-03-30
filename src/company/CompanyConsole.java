@@ -117,9 +117,15 @@ public class CompanyConsole {
 
 			System.out.println("SALARY: ");
 			double salary = in.nextDouble();
-
-			startUp.addEmployee(name, employeeNumber, new OurDate(day, month, year), salary);
-
+			
+			System.out.println("Employee Type (Manager = 1, Staff = 2, Temp = 3");
+			System.out.println();
+			System.out.println("Enter the Employee Type: ");
+			int emptype = in.nextInt();
+			
+			Employee employee = startUp.addEmployee(name, employeeNumber, new OurDate(day, month, year), salary, emptype);
+			employee.loadExtraInfo();
+			
 		}//end else
 	}
 
