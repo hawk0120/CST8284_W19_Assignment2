@@ -9,7 +9,7 @@
 package company;
 
 
-public class Employee {
+public abstract class Employee {
 	private String name;
 	private int employeeNumber;
 	private OurDate startDate;
@@ -73,4 +73,6 @@ public class Employee {
 				this.getEmployeeNumber() == other.getEmployeeNumber() && 
 				this.getStartDate().equals(other.getStartDate())); 			
 	}
+	
+	public abstract void loadExtraInfo();
 }
