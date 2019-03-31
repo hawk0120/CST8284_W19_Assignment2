@@ -2,11 +2,20 @@ package company;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 public class Company {
 	private ArrayList<Employee> employees = new ArrayList<Employee>();
 
-	public Company() {}
+	public Company() {
+		Staff staff = new Staff("Ross Chuttle", 23, new OurDate(22, 02,2010), 43269.0, "Finance");
+		employees.add(staff);
+		Manager manager = new Manager("Alvin Spring", 14, new OurDate(22, 12,2014), 15000.0, "Vice President");
+		employees.add(manager);
+		Temp temp = new Temp("Bob Ross", 2, new OurDate(10, 10, 1999), 40000.0, new OurDate(31, 03, 2019));
+		employees.add(temp);
+		//Instantiated new Employees for testing findEmployee
+	}
 
 	public int currentNumberEmployees() {
 		return employees.size();
@@ -21,23 +30,37 @@ public class Company {
 	}
 
 	public Employee findEmployee(int empNumber) {
-		int j = 0;
-		for (int i = 0; empNumber != employees.get(i).getEmployeeNumber(); i++) {
-			j++;
+		if (employees.size() == 0) {
+			return null;
+		} 
+		for (Employee searchEmployee : employees) {
+			if (searchEmployee.getEmployeeNumber() == empNumber) {
+				return searchEmployee;
+			}
 		}
-		return employees.get(j);
-	}
-
+		
+		return null;
+		}
+	
 	public Employee deleteEmployee(int empNumber) {
-		Employee del = new Staff();
-		del = findEmployee(empNumber);
-		employees.remove(del);
-		return del;
+		if (employees.size() == 0) {
+			return null;
+		}
+		for (Employee del : employees) {
+			if (del.getEmployeeNumber() == empNumber) {
+				employees.remove(del);
+				return null;
+			}
+		}
+		
+		return null;
 	}
 
 	public Employee findSeniorEmployee() {
-		if (employees.size() == 0)
+		if (employees.size() == 0) {
+			System.out.println("There are no Employees");
 			return null;
+		}	
 		int seniorEmployeeIndex = 0;
 		Calendar calEarliestStartDate = (Calendar.getInstance());
 
@@ -57,7 +80,7 @@ public class Company {
 		return employees.get(seniorEmployeeIndex);
 	}
 
-	public Employee addEmployee(String name, int employeeNumber, OurDate date, double salary, int emptype) {
+	public Employee addEmployee(String name, int employeeNumber, OurDate date, double salary, int emptype) {		
 		switch(emptype) {
 		case 1:
 			Manager manager = new Manager(name, employeeNumber, date, salary, null);
@@ -73,7 +96,7 @@ public class Company {
 			return temp;
 		}
 		return null;		
-		
+
 	}
 
 }// end class
