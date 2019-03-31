@@ -85,19 +85,30 @@ public class CompanyConsole {
 	}
 	private void deleteEmployee() {
 		System.out.println("What is the Employee Number: ");
-		startUp.deleteEmployee(in.nextInt());
+		Employee del = startUp.deleteEmployee(in.nextInt());
+		if(del == null) {
+			System.out.println("The deleted employee was succesfully deleted" );
+		} else {
+			System.out.println("The employee could not be deleted");
+		}
+		
 
 	}
 	private void findEmp() {
 		System.out.println("What is the Employee Number: ");
-		System.out.println("The located employee is " + startUp.findEmployee(in.nextInt()));
+		Employee searchEmployee = startUp.findEmployee(in.nextInt());
+		if(searchEmployee != null) {
+			System.out.println("The located employee is " + searchEmployee);
+		} else {
+			System.out.println("The employee could not be found");
+		}
 	}
 	private void addEmployee() {	
 		if(startUp.isMaximumEmployees()) 
 			System.out.println("Attempt to exceed maximum Employee array size;\n" +
 					"can't add another employee");
-		else{  
-
+	else{  
+			
 			System.out.println("ENTER NEW EMPLOYEE INFORMATION:\n");
 			System.out.print("NAME: ");
 			String name = in.nextLine();
@@ -118,7 +129,7 @@ public class CompanyConsole {
 			System.out.println("SALARY: ");
 			double salary = in.nextDouble();
 			
-			System.out.println("Employee Type (Manager = 1, Staff = 2, Temp = 3");
+			System.out.println("Employee Type (Manager = 1, Staff = 2, Temp = 3)");
 			System.out.println();
 			System.out.println("Enter the Employee Type: ");
 			int emptype = in.nextInt();
@@ -128,5 +139,4 @@ public class CompanyConsole {
 			
 		}//end else
 	}
-
 }//END CLASS COMPANYCONSOLE
